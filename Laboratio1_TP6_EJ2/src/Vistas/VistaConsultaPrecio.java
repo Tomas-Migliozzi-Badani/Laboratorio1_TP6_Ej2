@@ -1,20 +1,105 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vistas;
 
-/**
- *
- * @author Lucas
- */
+import Controladores.Producto;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TreeSet;
+import javax.swing.table.DefaultTableModel;
+
+/** 
+    @author Grupo 6 
+    Luis Ezequiel Sosa
+    Lucas Saidman
+    Gimenez Diego Ruben
+    Carlos German Mecias Giacomelli
+    Tomas Migliozzi Badani
+    Luca Rodrigaño
+    Ignacio Rodriguez
+**/
+
 public class VistaConsultaPrecio extends javax.swing.JInternalFrame {
+    
+    private final TreeSet<Producto> catalogo;
+    private DefaultTableModel modelo;
 
     /**
      * Creates new form VistaConsultaPrecio
      */
-    public VistaConsultaPrecio() {
+    public VistaConsultaPrecio(TreeSet<Producto> catalogo) {
         initComponents();
+        this.catalogo = catalogo;
+        this.modelo = (DefaultTableModel) tabla_productos.getModel();
+        
+        cargarTabla(catalogo);
+        
+        java.awt.event.KeyAdapter ka = new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                aplicarFiltroPrecioActual();
+            }
+        };
+        
+        txt_precio1.addKeyListener(ka);
+        txt_precio2.addKeyListener(ka);
+    }
+    
+    private void cargarTabla(Collection<Producto> datos) {
+        limpiarTabla();
+        
+        for(Producto p : datos) {
+            modelo.addRow(new String []{String.valueOf(p.getCodigo()), p.getDescripcion(), String.valueOf(p.getPrecio()), p.getCategoria(), String.valueOf(p.getStock())});
+        }
+    }
+    
+    private void limpiarTabla() {
+        modelo.setRowCount(0);
+    }
+    
+    private void aplicarFiltroPrecioActual() {
+        Double min = parseDouble(txt_precio1.getText());
+        Double max = parseDouble(txt_precio2.getText());
+        
+        if(min == null && max == null) {
+            cargarTabla(catalogo);
+            return;
+        }
+        
+        double desde = (min == null) ? 0.0 : min.doubleValue();
+        double hasta = (max == null) ? Double.MAX_VALUE : max.doubleValue();
+        
+        if(hasta < desde) {
+            double t = desde; 
+            desde = hasta; 
+            hasta = t;
+        }
+        
+        ArrayList<Producto> lista = new ArrayList<Producto>();
+        for(Producto p : catalogo) {
+            double precio = p.getPrecio();
+            
+            if(precio >= desde && precio <= hasta) {
+                lista.add(p);
+            }
+        }
+        cargarTabla(lista);
+    }
+    
+    private Double parseDouble(String s) {
+        if(s == null) {
+            return null;
+        }
+        
+        String t = s.trim();
+        
+        if(t.isEmpty()){
+            return null;
+        }
+        
+        try{
+            return Double.parseDouble(t);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -26,15 +111,108 @@ public class VistaConsultaPrecio extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnl_listado_precio = new javax.swing.JPanel();
+        lb_titulo = new javax.swing.JLabel();
+        lb_precio1 = new javax.swing.JLabel();
+        txt_precio1 = new javax.swing.JTextField();
+        lb_precio2 = new javax.swing.JLabel();
+        txt_precio2 = new javax.swing.JTextField();
+        sp_tabla_productos = new javax.swing.JScrollPane();
+        tabla_productos = new javax.swing.JTable();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
+        lb_titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titulo.setText("Listado por Precio");
+
+        lb_precio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lb_precio1.setText("Entre $");
+
+        txt_precio1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        lb_precio2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lb_precio2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_precio2.setText("y");
+
+        txt_precio2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        tabla_productos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tabla_productos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Descripcion", "Precio", "Categoria", "Stock"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        sp_tabla_productos.setViewportView(tabla_productos);
+
+        javax.swing.GroupLayout pnl_listado_precioLayout = new javax.swing.GroupLayout(pnl_listado_precio);
+        pnl_listado_precio.setLayout(pnl_listado_precioLayout);
+        pnl_listado_precioLayout.setHorizontalGroup(
+            pnl_listado_precioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_listado_precioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lb_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnl_listado_precioLayout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(lb_precio1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txt_precio1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lb_precio2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txt_precio2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_listado_precioLayout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addComponent(sp_tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        pnl_listado_precioLayout.setVerticalGroup(
+            pnl_listado_precioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_listado_precioLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lb_titulo)
+                .addGap(50, 50, 50)
+                .addGroup(pnl_listado_precioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_precio1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_precio1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_precio2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_precio2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(sp_tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(pnl_listado_precio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(pnl_listado_precio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -42,5 +220,13 @@ public class VistaConsultaPrecio extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lb_precio1;
+    private javax.swing.JLabel lb_precio2;
+    private javax.swing.JLabel lb_titulo;
+    private javax.swing.JPanel pnl_listado_precio;
+    private javax.swing.JScrollPane sp_tabla_productos;
+    private javax.swing.JTable tabla_productos;
+    private javax.swing.JTextField txt_precio1;
+    private javax.swing.JTextField txt_precio2;
     // End of variables declaration//GEN-END:variables
 }
