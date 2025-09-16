@@ -1,20 +1,61 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package App;
 
-/**
- *
- * @author Lucas
- */
+import Controladores.Producto;
+import java.util.Comparator;
+import java.util.TreeSet;
+
+/** 
+    @author Grupo 6 
+    Luis Ezequiel Sosa
+    Lucas Saidman
+    Gimenez Diego Ruben
+    Carlos German Mecias Giacomelli
+    Tomas Migliozzi Badani
+    Luca Rodrigaño
+    Ignacio Rodriguez
+**/
+
 public class FrmMenu extends javax.swing.JFrame {
+    
+    private final TreeSet<Producto> catalogo = new TreeSet<>(Comparator.comparingInt(Producto::getCodigo));
+    
+    private Vistas.VistaGestionProductos vistaGestionProductos;
+    private Vistas.VistaConsultaNombre vistaConsultaNombre;
+    private Vistas.VistaConsultaPrecio vistaConsultaPrecio;
+    private Vistas.VistaConsultaCategoria vistaConsultaCategoria;
 
     /**
-     * Creates new form FrmMenu
+     * Creates new form NewJFrame
      */
     public FrmMenu() {
         initComponents();
+        productosIniciales();
+    }
+    
+    private void productosIniciales() {
+        // ALIMENTO
+        catalogo.add(new Producto(1001, "Arroz 1kg", 2200.0, 60, "Alimento"));
+        catalogo.add(new Producto(1002, "Leche entera 1L", 1200.0, 80, "Alimento"));
+        catalogo.add(new Producto(1003, "Fideos spaghetti 500g", 950.0, 70, "Alimento"));
+        catalogo.add(new Producto(1004, "Aceite girasol 900ml", 2100.0, 40, "Alimento"));
+
+        // HOGAR
+        catalogo.add(new Producto(2001, "Detergente 750ml", 1800.0, 35, "Hogar"));
+        catalogo.add(new Producto(2002, "Lavandina 1L", 1100.0, 50, "Hogar"));
+        catalogo.add(new Producto(2003, "Escoba plastica", 2300.0, 20, "Hogar"));
+        catalogo.add(new Producto(2004, "Trapo de piso", 900.0, 60, "Hogar"));
+
+        // INDUMENTARIA
+        catalogo.add(new Producto(3001, "Remera basica", 8500.0, 45, "Indumentaria"));
+        catalogo.add(new Producto(3002, "Pantalon jean", 18500.0, 25, "Indumentaria"));
+        catalogo.add(new Producto(3003, "Zapatillas urbanas", 42000.0, 15, "Indumentaria"));
+        catalogo.add(new Producto(3004, "Buzo canguro", 22000.0, 35, "Indumentaria"));
+
+        // TECNOLOGiA
+        catalogo.add(new Producto(4001, "Mouse inalambrico", 15000.0, 30, "Tecnologia"));
+        catalogo.add(new Producto(4002, "Teclado mecanico", 38000.0, 12, "Tecnologia"));
+        catalogo.add(new Producto(4003, "Auriculares BT", 26000.0, 22, "Tecnologia"));
+        catalogo.add(new Producto(4004, "Pendrive 64GB", 9000.0, 50, "Tecnologia"));
     }
 
     /**
@@ -26,21 +67,116 @@ public class FrmMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Escritorio = new javax.swing.JDesktopPane();
+        menuBar = new javax.swing.JMenuBar();
+        menu_Administracion = new javax.swing.JMenu();
+        mi_gestion_productos = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        mi_consulta_nombre = new javax.swing.JMenuItem();
+        mi_consulta_precio = new javax.swing.JMenuItem();
+        mi_consulta_categoria = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
+        Escritorio.setLayout(EscritorioLayout);
+        EscritorioLayout.setHorizontalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        EscritorioLayout.setVerticalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
+
+        menu_Administracion.setText("Administracion");
+
+        mi_gestion_productos.setText("Gestion de Productos");
+        mi_gestion_productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_gestion_productosActionPerformed(evt);
+            }
+        });
+        menu_Administracion.add(mi_gestion_productos);
+
+        menuBar.add(menu_Administracion);
+
+        jMenu2.setText("Consultas");
+
+        mi_consulta_nombre.setText("Consulta por Nombre");
+        mi_consulta_nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_consulta_nombreActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_consulta_nombre);
+
+        mi_consulta_precio.setText("Consulta por Precio");
+        mi_consulta_precio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_consulta_precioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_consulta_precio);
+
+        mi_consulta_categoria.setText("Consulta por Categoria");
+        mi_consulta_categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_consulta_categoriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_consulta_categoria);
+
+        menuBar.add(jMenu2);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Escritorio)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mi_gestion_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_gestion_productosActionPerformed
+        if(vistaGestionProductos == null || vistaGestionProductos.isClosed()){
+            vistaGestionProductos = new Vistas.VistaGestionProductos(catalogo);
+            Escritorio.add(vistaGestionProductos);
+            vistaGestionProductos.setVisible(true);
+        }
+    }//GEN-LAST:event_mi_gestion_productosActionPerformed
+
+    private void mi_consulta_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_consulta_nombreActionPerformed
+        if(vistaConsultaNombre == null || vistaConsultaNombre.isClosed()){
+            vistaConsultaNombre = new Vistas.VistaConsultaNombre(catalogo);
+            Escritorio.add(vistaConsultaNombre);
+            vistaConsultaNombre.setVisible(true);
+        }
+    }//GEN-LAST:event_mi_consulta_nombreActionPerformed
+
+    private void mi_consulta_precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_consulta_precioActionPerformed
+        if(vistaConsultaPrecio == null || vistaConsultaPrecio.isClosed()){
+            vistaConsultaPrecio = new Vistas.VistaConsultaPrecio(catalogo);
+            Escritorio.add(vistaConsultaPrecio);
+            vistaConsultaPrecio.setVisible(true);
+        }
+    }//GEN-LAST:event_mi_consulta_precioActionPerformed
+
+    private void mi_consulta_categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_consulta_categoriaActionPerformed
+        if(vistaConsultaCategoria == null || vistaConsultaCategoria.isClosed()){
+            vistaConsultaCategoria = new Vistas.VistaConsultaCategoria(catalogo);
+            Escritorio.add(vistaConsultaCategoria);
+            vistaConsultaCategoria.setVisible(true);
+        }
+    }//GEN-LAST:event_mi_consulta_categoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,6 +204,7 @@ public class FrmMenu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -78,5 +215,13 @@ public class FrmMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menu_Administracion;
+    private javax.swing.JMenuItem mi_consulta_categoria;
+    private javax.swing.JMenuItem mi_consulta_nombre;
+    private javax.swing.JMenuItem mi_consulta_precio;
+    private javax.swing.JMenuItem mi_gestion_productos;
     // End of variables declaration//GEN-END:variables
 }
