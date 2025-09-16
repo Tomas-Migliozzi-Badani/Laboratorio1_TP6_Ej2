@@ -1,20 +1,77 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vistas;
 
-/**
- *
- * @author Lucas
- */
+import Controladores.Producto;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TreeSet;
+import javax.swing.table.DefaultTableModel;
+
+/** 
+    @author Grupo 6 
+    Luis Ezequiel Sosa
+    Lucas Saidman
+    Gimenez Diego Ruben
+    Carlos German Mecias Giacomelli
+    Tomas Migliozzi Badani
+    Luca Rodrigaño
+    Ignacio Rodriguez
+**/
+
 public class VistaConsultaNombre extends javax.swing.JInternalFrame {
+    
+    private final TreeSet<Producto> catalogo;
+    private DefaultTableModel modelo;
 
     /**
-     * Creates new form VistaConsultaNombre
+     * Creates new form VistaConsultaPrecio
      */
-    public VistaConsultaNombre() {
+    public VistaConsultaNombre(TreeSet<Producto> catalogo) {
         initComponents();
+        this.catalogo = catalogo;
+        this.modelo = (DefaultTableModel) tabla_productos.getModel();
+        
+        cargarTabla(catalogo);
+        
+        java.awt.event.KeyAdapter ka = new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                aplicarFiltroNombreActual();
+            }
+        };
+        txt_descripcion.addKeyListener(ka);
+    }
+    
+    private void cargarTabla(Collection<Producto> datos) {
+        limpiarTabla();
+        
+        for(Producto p : datos) {
+            modelo.addRow(new String[]{String.valueOf(p.getCodigo()), p.getDescripcion(), String.valueOf(p.getPrecio()), p.getCategoria(), String.valueOf(p.getStock())});
+        }
+    }
+    
+    private void limpiarTabla(){
+        modelo.setRowCount(0);
+    }
+    
+    private void aplicarFiltroNombreActual() {
+        String filtro = (txt_descripcion.getText() == null) ? "" : txt_descripcion.getText().trim().toLowerCase();
+        
+        if(filtro.isEmpty()) {
+            cargarTabla(catalogo);
+            return;
+        }
+        
+        ArrayList<Producto> lista = new ArrayList<Producto>();
+        
+        for(Producto p : catalogo) {
+            String descripcion = (p.getDescripcion() == null) ? "" : p.getDescripcion().toLowerCase();
+            
+            if(descripcion.contains(filtro)){
+                lista.add(p);
+            }
+        }
+        
+        cargarTabla(lista);
     }
 
     /**
@@ -26,15 +83,91 @@ public class VistaConsultaNombre extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnl_listado_nombre = new javax.swing.JPanel();
+        lb_titulo = new javax.swing.JLabel();
+        lb_descripcion = new javax.swing.JLabel();
+        txt_descripcion = new javax.swing.JTextField();
+        sp_tabla_productos = new javax.swing.JScrollPane();
+        tabla_productos = new javax.swing.JTable();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
+        lb_titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titulo.setText("Listado por Nombre");
+
+        lb_descripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lb_descripcion.setText("Ingrese Descripcion:");
+
+        txt_descripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        tabla_productos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tabla_productos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Descripcion", "Precio", "Categoria", "Stock"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        sp_tabla_productos.setViewportView(tabla_productos);
+
+        javax.swing.GroupLayout pnl_listado_nombreLayout = new javax.swing.GroupLayout(pnl_listado_nombre);
+        pnl_listado_nombre.setLayout(pnl_listado_nombreLayout);
+        pnl_listado_nombreLayout.setHorizontalGroup(
+            pnl_listado_nombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_listado_nombreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lb_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnl_listado_nombreLayout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addGroup(pnl_listado_nombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sp_tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        pnl_listado_nombreLayout.setVerticalGroup(
+            pnl_listado_nombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_listado_nombreLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lb_titulo)
+                .addGap(18, 18, 18)
+                .addComponent(lb_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(sp_tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(pnl_listado_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(pnl_listado_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -42,5 +175,11 @@ public class VistaConsultaNombre extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lb_descripcion;
+    private javax.swing.JLabel lb_titulo;
+    private javax.swing.JPanel pnl_listado_nombre;
+    private javax.swing.JScrollPane sp_tabla_productos;
+    private javax.swing.JTable tabla_productos;
+    private javax.swing.JTextField txt_descripcion;
     // End of variables declaration//GEN-END:variables
 }
