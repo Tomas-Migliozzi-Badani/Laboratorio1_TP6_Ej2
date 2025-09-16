@@ -3,7 +3,6 @@
 
 # Log file
 *.log
-
 # BlueJ files
 *.ctxt
 
@@ -22,3 +21,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# archivos de configuracion de IDE
+*.nbattrs
+*.nbactions
+
+# Carpetas de compilación/generadas automáticamente
+build/
+dist/
+nbbuild/
+nbdist/
+
+# Ignorar archivos privados de NetBeans
+**/nbproject/private/private.properties
+**/nbproject/private/private.xml
+**/nbproject/private/
+nbproject/private/
