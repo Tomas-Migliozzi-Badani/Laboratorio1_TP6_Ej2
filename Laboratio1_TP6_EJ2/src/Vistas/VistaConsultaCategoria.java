@@ -1,20 +1,117 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vistas;
 
-/**
- *
- * @author Lucas
- */
+import Controladores.Producto;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
+/** 
+    @author Grupo 6 
+    Luis Ezequiel Sosa
+    Lucas Saidman
+    Gimenez Diego Ruben
+    Carlos German Mecias Giacomelli
+    Tomas Migliozzi Badani
+    Luca Rodrigaño
+    Ignacio Rodriguez
+**/
+
 public class VistaConsultaCategoria extends javax.swing.JInternalFrame {
+    
+    private final TreeSet<Producto> catalogo;
+    private DefaultTableModel modelo;
 
     /**
-     * Creates new form VistaConsultaCategoria
+     * Creates new form VistaConsultaPrecio
      */
-    public VistaConsultaCategoria() {
+    public VistaConsultaCategoria(TreeSet<Producto> catalogo) {
         initComponents();
+        this.catalogo = catalogo;
+        this.modelo = (DefaultTableModel) tabla_productos.getModel();
+        
+        actualizarComboCategorias();
+        
+        if(cb_categoria.getItemCount() > 0) {
+            cb_categoria.setSelectedIndex(0);
+        }
+        
+        cargarTablaTodos();
+        
+        cb_categoria.addItemListener(new java.awt.event.ItemListener() {
+            @Override
+            public void itemStateChanged(java.awt.event.ItemEvent e) {
+                aplicarFiltroCategoriaActual();
+            }
+        });
+    }
+    
+    private void actualizarComboCategorias() {
+        Set<String> categorias = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        
+        for(Producto p : catalogo) {
+            if(p.getCategoria() != null) {
+                String c = p.getCategoria().trim();
+                
+                if(!c.isEmpty()) {
+                    categorias.add(c);
+                }
+            }
+        }
+        
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
+        model.addElement("Todas");
+        
+        for(String c : categorias) {
+            model.addElement(c);
+        }
+        
+        cb_categoria.setModel(model);
+    }
+    
+    private void cargarTablaTodos() {
+        limpiarTabla();
+        
+        for(Producto p : catalogo) {
+            modelo.addRow(new String[] {String.valueOf(p.getCodigo()), p.getDescripcion(), String.valueOf(p.getPrecio()), p.getCategoria(), String.valueOf(p.getStock())});
+        }
+    }
+    
+    private void cargarTablaLista(ArrayList<Producto> datos) {
+        limpiarTabla();
+        
+        for(Producto p : datos) {
+            modelo.addRow(new String[] {String.valueOf(p.getCodigo()), p.getDescripcion(), String.valueOf(p.getPrecio()), p.getCategoria(), String.valueOf(p.getStock())});
+        }
+    }
+    
+    private void limpiarTabla() {
+        modelo.setRowCount(0);
+    }
+    
+    private void aplicarFiltroCategoriaActual() {
+        Object select = cb_categoria.getSelectedItem();
+        String categoria = (select == null) ? "Todas" : select.toString().trim();
+        
+        if("Todas".equalsIgnoreCase(categoria)) {
+            cargarTablaTodos();
+            return;
+        }
+        
+        ArrayList<Producto> lista = new ArrayList<Producto>();
+        
+        for(Producto p : catalogo) {
+            if(p.getCategoria() != null) {
+                String c = p.getCategoria().trim();
+                
+                if(!c.isEmpty() && c.equalsIgnoreCase(categoria)) {
+                    lista.add(p);
+                }
+            }
+        }
+        
+        cargarTablaLista(lista);
     }
 
     /**
@@ -26,15 +123,92 @@ public class VistaConsultaCategoria extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnl_listado_categoria = new javax.swing.JPanel();
+        lb_titulo = new javax.swing.JLabel();
+        lb_categoria = new javax.swing.JLabel();
+        sp_tabla_productos = new javax.swing.JScrollPane();
+        tabla_productos = new javax.swing.JTable();
+        cb_categoria = new javax.swing.JComboBox<>();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
+        lb_titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titulo.setText("Listado por Categoria");
+
+        lb_categoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lb_categoria.setText("Categoria:");
+
+        tabla_productos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tabla_productos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Descripcion", "Precio", "Categoria", "Stock"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        sp_tabla_productos.setViewportView(tabla_productos);
+
+        javax.swing.GroupLayout pnl_listado_categoriaLayout = new javax.swing.GroupLayout(pnl_listado_categoria);
+        pnl_listado_categoria.setLayout(pnl_listado_categoriaLayout);
+        pnl_listado_categoriaLayout.setHorizontalGroup(
+            pnl_listado_categoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_listado_categoriaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lb_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_listado_categoriaLayout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addComponent(sp_tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_listado_categoriaLayout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(lb_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cb_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnl_listado_categoriaLayout.setVerticalGroup(
+            pnl_listado_categoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_listado_categoriaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lb_titulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(pnl_listado_categoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addComponent(sp_tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(pnl_listado_categoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(pnl_listado_categoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -42,5 +216,11 @@ public class VistaConsultaCategoria extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cb_categoria;
+    private javax.swing.JLabel lb_categoria;
+    private javax.swing.JLabel lb_titulo;
+    private javax.swing.JPanel pnl_listado_categoria;
+    private javax.swing.JScrollPane sp_tabla_productos;
+    private javax.swing.JTable tabla_productos;
     // End of variables declaration//GEN-END:variables
 }
