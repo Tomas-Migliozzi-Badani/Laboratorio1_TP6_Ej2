@@ -268,7 +268,7 @@
         <Component class="javax.swing.JButton" name="btn_nuevo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\lusai\OneDrive\Documentos\ULP\1&#xba; A&#xf1;o - Segundo Semestre\Laboratorio de Programaci&#xf3;n I\Pruebas de TP\PruebaTP6-EJ2\icons\escoba.png"/>
+              <Image iconType="3" name="/icons/escoba.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
           </Properties>
@@ -279,7 +279,7 @@
         <Component class="javax.swing.JButton" name="btn_guardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\lusai\OneDrive\Documentos\ULP\1&#xba; A&#xf1;o - Segundo Semestre\Laboratorio de Programaci&#xf3;n I\Pruebas de TP\PruebaTP6-EJ2\icons\guardar.png"/>
+              <Image iconType="3" name="/icons/guardar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
@@ -290,7 +290,7 @@
         <Component class="javax.swing.JButton" name="btn_actualizar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\lusai\OneDrive\Documentos\ULP\1&#xba; A&#xf1;o - Segundo Semestre\Laboratorio de Programaci&#xf3;n I\Pruebas de TP\PruebaTP6-EJ2\icons\icons8-aprobar-y-actualizar-48.png"/>
+              <Image iconType="3" name="/icons/icons8-aprobar-y-actualizar-48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
@@ -301,7 +301,7 @@
         <Component class="javax.swing.JButton" name="btn_eliminar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\lusai\OneDrive\Documentos\ULP\1&#xba; A&#xf1;o - Segundo Semestre\Laboratorio de Programaci&#xf3;n I\Pruebas de TP\PruebaTP6-EJ2\icons\eliminar.png"/>
+              <Image iconType="3" name="/icons/eliminar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
@@ -312,7 +312,7 @@
         <Component class="javax.swing.JButton" name="btn_buscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\lusai\OneDrive\Documentos\ULP\1&#xba; A&#xf1;o - Segundo Semestre\Laboratorio de Programaci&#xf3;n I\Pruebas de TP\PruebaTP6-EJ2\icons\icons8-magnifying-glass-tilted-right-48.png"/>
+              <Image iconType="3" name="/icons/icons8-magnifying-glass-tilted-right-48.png"/>
             </Property>
           </Properties>
           <Events>

@@ -473,7 +473,7 @@ public class VistaGestionProductos extends javax.swing.JInternalFrame {
 
         lb_descripcion.setText("Descripcion:");
 
-        btn_nuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\lusai\\OneDrive\\Documentos\\ULP\\1º Año - Segundo Semestre\\Laboratorio de Programación I\\Pruebas de TP\\PruebaTP6-EJ2\\icons\\escoba.png")); // NOI18N
+        btn_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/escoba.png"))); // NOI18N
         btn_nuevo.setText("Nuevo");
         btn_nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,7 +481,7 @@ public class VistaGestionProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_guardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\lusai\\OneDrive\\Documentos\\ULP\\1º Año - Segundo Semestre\\Laboratorio de Programación I\\Pruebas de TP\\PruebaTP6-EJ2\\icons\\guardar.png")); // NOI18N
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/guardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -489,7 +489,7 @@ public class VistaGestionProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_actualizar.setIcon(new javax.swing.ImageIcon("C:\\Users\\lusai\\OneDrive\\Documentos\\ULP\\1º Año - Segundo Semestre\\Laboratorio de Programación I\\Pruebas de TP\\PruebaTP6-EJ2\\icons\\icons8-aprobar-y-actualizar-48.png")); // NOI18N
+        btn_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-aprobar-y-actualizar-48.png"))); // NOI18N
         btn_actualizar.setText("Actualizar");
         btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,7 +497,7 @@ public class VistaGestionProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_eliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\lusai\\OneDrive\\Documentos\\ULP\\1º Año - Segundo Semestre\\Laboratorio de Programación I\\Pruebas de TP\\PruebaTP6-EJ2\\icons\\eliminar.png")); // NOI18N
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,7 +505,7 @@ public class VistaGestionProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_buscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\lusai\\OneDrive\\Documentos\\ULP\\1º Año - Segundo Semestre\\Laboratorio de Programación I\\Pruebas de TP\\PruebaTP6-EJ2\\icons\\icons8-magnifying-glass-tilted-right-48.png")); // NOI18N
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-magnifying-glass-tilted-right-48.png"))); // NOI18N
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
